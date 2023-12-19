@@ -1,0 +1,21 @@
+body {
+    background-image: linear-gradient(to left, rgb(109, 144, 168), rgba(31, 27, 41, 0.651),rgb(109, 144, 168));
+    height: 100%;
+    width: 100%;
+}
+
+.offcanvas {
+    background-image: linear-gradient(to left, rgb(109, 144, 168), rgba(31, 27, 41, 0.651), rgb(109, 144, 168));
+}
+
+.card {
+    border : none;
+}
+
+p {
+    color: white;
+}
+
+.card-title {
+    color : white;
+}
