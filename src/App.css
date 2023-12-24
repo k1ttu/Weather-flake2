@@ -1,21 +1,19 @@
-body {
-    background-image: linear-gradient(to left, rgb(109, 144, 168), rgba(31, 27, 41, 0.651),rgb(109, 144, 168));
-    height: 100%;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    margin: 0px;
+    top:0;
+    background: linear-gradient(to right bottom, rgb(51, 97, 230), rgb(100 , 209 , 249))  no-repeat ;
+    min-height: 100%;
     width: 100%;
 }
-
-.offcanvas {
-    background-image: linear-gradient(to left, rgb(109, 144, 168), rgba(31, 27, 41, 0.651), rgb(109, 144, 168));
-}
-
-.card {
-    border : none;
-}
-
-p {
-    color: white;
-}
-
-.card-title {
-    color : white;
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to right bottom,
+        rgb(51, 97, 230)
+      )
+      rgb(var(--background-start-rgb));
 }

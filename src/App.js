@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Components/Navbar";
+
 import LandingPage from "./Components/LandingPage";
-import "./App.css";
 
 function App() {
   const [load, setLoad] = useState(true);
@@ -11,10 +11,14 @@ function App() {
   }, []);
 
   return (
-    <>
-      {load && <LandingPage />}
-      {!load && <Navbar />}
-    </>
+    <body className=" bg-gradient-to-r from-bgstart to-bgend">
+      {
+        load ?
+        <LandingPage />
+          :
+          <Navbar />
+      }
+    </body>
   );
 }
 

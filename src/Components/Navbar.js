@@ -1,9 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import "../App.css";
+import logo from './bg.png'
+import { Offcanvas } from "react-bootstrap";
+
 
 const Navbar = () => {
-  const [location, setLocation] = useState("New Delhi");
+  const [location, setLocation] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => setIsOpen(!isOpen)
+
   const [resString, setResString] = useState({
     location: {
       name: "London",
@@ -64,6 +71,7 @@ const Navbar = () => {
       let res = await fetch(url);
       let data = await res.json();
       setResString(data);
+      setIsOpen(false)
     } catch (e) {
       console.log(e);
     }
@@ -72,85 +80,71 @@ const Navbar = () => {
   function updateLocation(e) {
     setLocation(e.target.value);
   }
+  const heading1 = ""
 
   return (
-    <>
-      <nav className="navbar bg-transparent">
-        <div className="container-fluid bg-transparent">
-          <img
-            src="../WeatherFlake.png"
-            alt="Logo"
-            width="50"
-            height="50"
-            className="align-text-center bg-transparent"
+    <main className=" flex flex-col align-top animate__animated animate__fadeIn animate__delay-1s">
+      <nav className="flex align-middle justify-between  h-min  md:py-2  py-1 animate__animated animate__fadeInDown ">
+        <img
+          src={logo}
+          height={70}
+          width={70}
+          className="m-0 p-0"
+        />
+        <button class='md:hidden cursor-pointer w-9 h-9 bg-none appearance-none relative' onClick={handleClose}>
+          <div className="bar block h-[3px] w-full rounded-md my-1 bg-black " ></div>
+          <div className="bar block h-[3px] w-full rounded-md my-1 bg-black "></div>
+          <div className="bar block h-[3px] w-full rounded-md bg-black my-1 "></div>
+        </button>
+        <form className="my-2 items-end justify-self-end">
+
+          <input type="text"
+            value={location}
+            onChange={(e) => { updateLocation(e) }}
+            placeholder="Search"
+            className="bg-black text-white py-1  text-base  w-1/2 border-2 border-gray-500 rounded-lg font-base"
           />
-
-          <button
-            className="btn"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasTop"
-            aria-controls="offcanvasTop"
-          >
-            <span className="navbar-toggler-icon" style={{color: "white"}}></span>
+          <button onClick={gotData} className="ml-2 rounded-lg bg-none" >
+            Submit
           </button>
+        </form>
 
-          <div
-            className="offcanvas offcanvas-top"
-            tabIndex="-1"
-            id="offcanvasTop"
-            aria-labelledby="offcanvasTopLabel"
-          >
-            <div className="offcanvas-header ">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-                style={{color: "white"}}
-              ></button>
-            </div>
-            <div className="offcanvas-body ">
-              <div className="form-floating mb-3">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                  onChange={updateLocation}
-                />
-                <label htmlFor="floatingInput">
-                  search weather for your city
-                </label>
-              </div>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={gotData}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
+        <Offcanvas className="bg-transparent backdrop-blur-sm md:hidden" show={isOpen} onHide={handleClose} placement="top" >
+          <Offcanvas.Header closeButton >
+          </Offcanvas.Header>
+          <Offcanvas.Body className='md:hidden'>
+
+          </Offcanvas.Body>
+        </Offcanvas>
       </nav>
-      <div className="card-group">
-        <div className="card bg-transparent">
-          <div className="card-body text-center">
-            <h1 className="card-title">{resString.location.name},</h1>
-            <h2 style={{ color: "white" }}>{resString.location.country}</h2>
-            <p className="card-text">
-              latitude : {resString.location.lat}
-              <br />
-              longitude : {resString.location.lon}
-              <br />
-              timezone : {resString.location.tz_id}
-              <br />
-              time : {resString.location.localtime}
-            </p>
+      <div className=" items-center self-center">
+        <div className="bg-transparent">
+          <div className="flex flex-col align-top justify-center bg-white/30 backdrop-blur-lg w-fit rounded-2xl py-3">
+            <div className="flex flex-row justify-center align-middle px-10 md:px-10">
+              <h1 className="text-white mx-2 text-6xl font-bold">
+                {resString.current.temp_c}&deg;C
+              </h1>
+              <div className="mx-2 border-l-2 px-2 h-fit ">
+                <h2 className="text-white font-bold md:text-xl text-xl">
+                  {resString.location.name},
+                </h2>
+                <h2 className="text-white font-bold md:text-xl text-xl">
+                  {resString.location.country}
+                </h2>
+              </div>
+            </div>
+            <div>
+              <ul>
+
+              </ul>
+            </div>
+            <div>
+
+            </div>
+
           </div>
         </div>
-        <div className="card bg-transparent">
+        <div className="">
           <div className="card-body">
             <h1 className="card-title text-center">
               <u>Forecast</u>
@@ -215,7 +209,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 };
 
